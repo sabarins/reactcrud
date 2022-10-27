@@ -1,0 +1,53 @@
+let [data,setData] = useState([]);
+
+    useEffect(
+        function()
+        {
+            fetch("https://stat.dinamalar.com/sample_json.php")
+            .then((res)=>res.json())
+            .then((response)=>{
+                setData(response);
+                console.log(response);
+            })
+            console.log("working");
+        },[])
+    console.log(data.items);
+    return(
+        <div className='container'>
+            <div className='header'>
+                <h2 style={{color:'white',textIndent:'30px'}}>D I N A M A L A R </h2>
+                <p>No.1 Tamil news website in the world</p>
+            </div>
+            <div className='users'>
+                {
+                
+                   Object.keys(data).map((ele,ind)=>
+                   {
+                    console.log(data[ele]);
+                    return(
+                        <div className='bodystart'>
+                            <h2>Today News</h2>
+                            <div className='box'>
+                                {
+                                    data[ele].map((el,ind)=>
+                                    {
+                                        return(
+                                            <div className='star'>
+                                                <img src={el.StoryImage} width="350px" className='img' height="200px" alt="storyimage"></img>
+                                                <p className='content'>{el.title}</p>
+                                                <p>{el.link}</p>
+                                            </div>
+                                        
+                                        )
+                                    })
+                                }
+                            </div>
+                           
+                            
+                        </div>
+                    )
+                   })
+                }
+            </div>
+        </div>
+    )
